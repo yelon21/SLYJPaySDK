@@ -29,6 +29,14 @@ yelon21, yl21ly@qq.com
 SLYJPaySDK is available under the MIT license. See the LICENSE file for more info.
 
 ## 1. 说明
+依赖库：
+
+```
+pod 'AFNetworking','~> 3.1.0'
+pod 'Masonry'
+pod 'GTMBase64'
+```
+
 用户使用此SDK前需要先提供其App的包名`bundleId`到后台备案，备案后下发`appKey`给用户用于后续操作。
 
 >注：此SDK仅支持真机运行，不支持模拟器运行。
@@ -78,7 +86,7 @@ typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSS
 
 <!--1. 切换用户后必须调用-->
 
-2. 登陆成功后必须调用
+1. 登陆成功后必须调用
 
 <!--3. App启动后必须调用。-->
 
