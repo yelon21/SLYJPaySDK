@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>POSLIST</key>
+	<array>
+		<array>
+			<dict>
+				<key>deviceName</key>
+				<string>Q5(27)</string>
+				<key>deviceImage</key>
+				<string>POS_P27</string>
+				<key>deviceTag</key>
+				<string>27</string>
+			</dict>
+			<dict>
+				<key>deviceName</key>
+				<string>ANF01</string>
+				<key>deviceImage</key>
+				<string>POS_ANFU</string>
+				<key>deviceTag</key>
+				<string>29</string>
+			</dict>
+			<dict>
+				<key>deviceName</key>
+				<string>WM31(P8)</string>
+				<key>deviceImage</key>
+				<string>POS_P84</string>
+				<key>deviceTag</key>
+				<string>28</string>
+			</dict>
+			<dict>
+				<key>deviceName</key>
+				<string>AF60</string>
+				<key>deviceImage</key>
+				<string>POS_ANFG30</string>
+				<key>deviceTag</key>
+				<string>30</string>
+			</dict>
+			<dict>
+				<key>deviceName</key>
+				<string>A80</string>
+				<key>deviceImage</key>
+				<string>POS_A80</string>
+				<key>deviceTag</key>
+				<string>32</string>
+			</dict>
+			<dict>
+				<key>deviceName</key>
+				<string>M60</string>
+				<key>deviceImage</key>
+				<string>POS_M60</string>
+				<key>deviceTag</key>
+				<string>33</string>
+			</dict>
+		</array>
+	</array>
+</dict>
+</plist>

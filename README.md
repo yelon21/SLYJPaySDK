@@ -28,21 +28,13 @@ yelon21, yl21ly@qq.com
 
 SLYJPaySDK is available under the MIT license. See the LICENSE file for more info.
 
-## 1. 说明
-依赖库：
-
-```
-pod 'AFNetworking','~> 3.1.0'
-pod 'Masonry'
-pod 'GTMBase64'
-```
-
+##1. 说明
 用户使用此SDK前需要先提供其App的包名`bundleId`到后台备案，备案后下发`appKey`给用户用于后续操作。
 
->注：此SDK仅支持真机运行，不支持模拟器运行。
->支持iOS7.1或更高版本。
+Xcode配置：在使用target的Build Settings标签下的Other Linker Flags选项里面添加-ObjC。
 
-## 2. SDK使用使用此SDK必须保持网络畅通并且App的定位权限已开启,蓝牙访问权限已开启。        在使用时候会涉及到回调，此处使用block方式。
+>注：此SDK仅支持真机运行，不支持模拟器运行。
+>支持iOS7.0或更高版本。##2. SDK使用使用此SDK必须保持网络畅通并且App的定位权限已开启,蓝牙访问权限已开启。        在使用时候会涉及到回调，此处使用block方式。
 
 block定义如下：
 
@@ -76,17 +68,17 @@ typedef NS_ENUM(NSUInteger, YJErrorType) {
     YJErrorTypeLocationIsLocating,
 };
  */
-typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSString *errorString);```### 2.1. 授权认证
+typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSString *errorString);```###2.1. 授权认证
 只有授权成功才能进行后续流程。
 ```/** 认证  @param key           下发给合作商的key @param responseBlock 回调 */+ (void)startWithKey:(NSString *)key       responseBlock:(ResponseBlock)responseBlock;```
-### 2.2 用户信息#### 2.2.1 用户信息查询
+###2.2 用户信息####2.2.1 用户信息查询
 在授权成功后必须先获取用户信息，然后才能进行其他用户相关操作。
 
 <font color=#ff0000 size=3>重要：以下情况必须调用，以达到信息同步。
 
 <!--1. 切换用户后必须调用-->
 
-1. 登陆成功后必须调用
+2. 登陆成功后必须调用
 
 <!--3. App启动后必须调用。-->
 
@@ -96,7 +88,7 @@ typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSS
 ```/** 获取用户信息  @param phone         用户手机号 @param responseBlock 回调 cashCardFlag:是否已绑定出款卡 certPid:身份证号 realName:用户姓名 mobileNo:用户手机号 authenFlag:认证状态
  remark:实名认证驳回原因 
  说明： authenFlag -> 0:初始状态，1：已完善信息，2：已提交实名认证，3：实名认证通过，4：认证失败，5：上传中（暂无） cashCardFlag -> 0:未绑定 1：已绑定 */+ (void)queryUserInfo:(NSString *)phone        responseBlock:(ResponseBlock)responseBlock;```
-#### 2.2.2 用户信息保存在获取用户信息后，判定用户状态`authenFlag`为0或1或4的时候才可以进行用户信息修改保存。否则不可以保存。
+####2.2.2 用户信息保存在获取用户信息后，判定用户状态`authenFlag`为0或1或4的时候才可以进行用户信息修改保存。否则不可以保存。
 
 ```/**
  保存用户信息
@@ -110,10 +102,12 @@ typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSS
             userName:(NSString *)userName
              certPid:(NSString *)certPid
        responseBlock:(ResponseBlock)responseBlock```
-#### 2.2.3 用户实名认证照片上传
+####2.2.3 用户实名认证照片上传
 在获取用户信息后，判定用户状态`authenFlag`为1或4的时候才可以进行用户实名认证照片上传，否则不可以保存。
 
 **注意：实名认证照片必须实时拍照获取，不可以从相册或者其他方式获取，以防ps等作假。**
+
+**另外：拍照完毕后，为防止图片变形失真，如果压缩必须等比例压缩且最大边长不小于600pt。**
     
 ```/**
  实名认证照片上传
@@ -129,7 +123,7 @@ typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSS
                 identityFront:(UIImage *)frontImage
                  identityBack:(UIImage *)backImage
                 responseBlock:(ResponseBlock)responseBlock
-```### 2.3 出款卡#### 2.3.1 出款卡保存
+```###2.3 出款卡####2.3.1 出款卡保存
 绑定出款卡必须确保实名认证已完成，即：`authenFlag`为3，且绑定卡的**持卡人姓名**必须与**实名认证的姓名**一致。否则无法出款。
 ```/**
  绑定出款卡
@@ -151,7 +145,7 @@ typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSS
          bankProvinceId:(NSString *)bankProvinceId
              bankCityId:(NSString *)bankCityId
           responseBlock:(ResponseBlock)responseBlock;```
-#### 2.3.2 出款卡查询
+####2.3.2 出款卡查询
 ```/**
  查询出款卡
  
@@ -160,7 +154,7 @@ typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSS
  */
 + (void)queryCashCard:(NSString *)phone
         responseBlock:(ResponseBlock)responseBlock```
-#### 2.3.3 出款卡删除
+####2.3.3 出款卡删除
 ```/**
  解绑出款卡
  
@@ -171,7 +165,7 @@ typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSS
 + (void)deleteCashCard:(NSString *)phone
                 cardId:(NSString *)cardId
          responseBlock:(ResponseBlock)responseBlock;```
-#### 2.3.4 可绑定银行列表查询
+####2.3.4 可绑定银行列表查询
 ```/**
  获取可绑定银行列表
  
@@ -183,16 +177,17 @@ typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSS
  */
 + (void)queryCanBindBankList:(NSString *)phone
                responseBlock:(ResponseBlock)responseBlock;```
-#### 2.3.5 省份列表查询
+####2.3.5 省份列表查询
 ```/** 获取省份列表  @return 省份列表 @example
  [{"id":"310000","name":"上海市"}] id id name 省份名称 */+ (NSArray *)getProvinceList;```
-#### 2.3.6 城市列表查询
+####2.3.6 城市列表查询
 ```/** 获取城市列表  @param pid 省份id @return 城市列表
  
  @example 
  {"id":"310000","name":"上海市","pid":"310000"} 
  id 城市id pid 省份id name 城市名称 */+ (NSArray *)getCityListByProvinceId:(NSString *)pid;```
-#### 2.3.7 支行列表查询
+####2.3.7 支行列表查询
+如果所查询的支行不存在，可以任意选择支行
 ```/**
  查询支行列表
  
@@ -213,11 +208,12 @@ typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSS
                         provinceId:(NSString *)provinceId
                             cityId:(NSString *)cityId
                            keyWord:(NSString *)keyWord
-                     responseBlock:(ResponseBlock)responseBlock```### 2.4 支付#### 2.4.1 刷卡支付发起支付必须保证实名认证已完成，即：`authenFlag`为3，并且已经绑定出款卡即`cashCardFlag`为1，否则无法出款。
+                     responseBlock:(ResponseBlock)responseBlock```###2.4 支付####2.4.1 刷卡支付发起支付必须保证实名认证已完成，即：`authenFlag`为3，并且收款方已经绑定出款卡，否则会在收款方绑定出款卡后延迟出款。
 ```/**
  支付
  
  @param phone          用户手机号
+ @param toUserPhone    收款人手机号
  @param orderId        第三方订单id 或 者订单唯一标识
  @param amount         金额 单位为分 <=5000000
  @param payType        支付方式
@@ -233,10 +229,20 @@ typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSS
  YJSettlementTypeTO,//TO 结算
  YJSettlementTypeT1//T1 结算
  };
+  商品类型
+typedef NS_ENUM(NSUInteger, YJMerchantType) {
+    YJMerchantTypeSE,//超市电器类
+    YJMerchantTypeCA,//服装百货类
+    YJMerchantTypeHD,//酒店餐饮类
+    YJMerchantTypeJE,//珠宝娱乐类
+    YJMerchantTypeCAR,//汽车消费类
+};
  */
 + (void)startPay:(NSString *)phone
+     toUserPhone:(NSString *)toUserPhone
          orderId:(NSString *)orderId
           amount:(NSString *)amount
          payType:(YJPayToolType)payType
   settlementType:(YJSettlementType)settlementType
-   responseBlock:(ResponseBlock)responseBlock;```
+    merchantType:(YJMerchantType)merchantType
+   responseBlock:(ResponseBlock)responseBlock;```

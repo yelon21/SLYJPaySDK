@@ -36,6 +36,23 @@ typedef NS_ENUM(NSUInteger, YJSettlementType) {
 };
 
 /**
+ 商品类型
+ 
+ - YJMerchantTypeSE: 超市电器类
+ - YJMerchantTypeCA: 服装百货类
+ - YJMerchantTypeHD: 酒店餐饮类
+ - YJMerchantTypeJE: 珠宝娱乐类
+ - YJMerchantTypeCAR: 汽车消费类
+ */
+typedef NS_ENUM(NSUInteger, YJMerchantType) {
+    YJMerchantTypeSE,//超市电器类
+    YJMerchantTypeCA,//服装百货类
+    YJMerchantTypeHD,//酒店餐饮类
+    YJMerchantTypeJE,//珠宝娱乐类
+    YJMerchantTypeCAR,//汽车消费类
+};
+
+/**
  错误码
  
  - YJErrorTypeNoError: 无错误
@@ -57,9 +74,10 @@ typedef NS_ENUM(NSUInteger, YJErrorType) {
     YJErrorTypeParameterInvalid,
     YJErrorTypeLocationIsOff,
     YJErrorTypeLocationIsLocating,
+    YJErrorTypePhoneNumberError,
 };
 
 #define YJMessage_NotPermission @"未授权"
 #define YJMessage_UserInfoError @"请先获取用户信息"
-
+#define YJMessage_PhoneNumberError @"手机号不合法"
 #endif /* YJPayDefine_h */

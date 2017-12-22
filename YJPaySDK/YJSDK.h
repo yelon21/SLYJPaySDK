@@ -210,10 +210,12 @@ typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSS
  支付
  
  @param phone          用户手机号
+ @param toUserPhone   收款人手机号
  @param orderId        第三方订单id 或 者订单唯一标识
  @param amount         金额 单位为分 <=5000000
  @param payType        支付方式
  @param settlementType 结算方式
+ @param merchantType   商品类型
  @param responseBlock  回调
  
  typedef NS_ENUM(NSUInteger, YJPayToolType) {
@@ -225,12 +227,24 @@ typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSS
  YJSettlementTypeTO,//TO 结算
  YJSettlementTypeT1//T1 结算
  };
- */
+ 
+ 商品类型
+typedef NS_ENUM(NSUInteger, YJMerchantType) {
+    YJMerchantTypeSE,//超市电器类
+    YJMerchantTypeCA,//服装百货类
+    YJMerchantTypeHD,//酒店餐饮类
+    YJMerchantTypeJE,//珠宝娱乐类
+    YJMerchantTypeCAR,//汽车消费类
+};
+**/
+
 + (void)startPay:(NSString *)phone
+     toUserPhone:(NSString *)toUserPhone
          orderId:(NSString *)orderId
           amount:(NSString *)amount
          payType:(YJPayToolType)payType
   settlementType:(YJSettlementType)settlementType
+    merchantType:(YJMerchantType)merchantType
    responseBlock:(ResponseBlock)responseBlock;
 
 @end
