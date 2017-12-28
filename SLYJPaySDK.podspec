@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SLYJPaySDK'
-  s.version          = '2.2'
+  s.version          = '2.2.1'
   s.summary          = 'SLYJPaySDK.'
 
   s.description      = <<-DESC
