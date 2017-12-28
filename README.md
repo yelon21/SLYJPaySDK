@@ -17,7 +17,7 @@ SLYJPaySDK is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'SLYJPaySDK', '~> 2.2.1'
+pod 'SLYJPaySDK', '~> 2.2.2'
 ```
 
 ## Author
@@ -31,7 +31,7 @@ SLYJPaySDK is available under the MIT license. See the LICENSE file for more inf
 ##SDK接入
 使用pod库安装：
 
-在Podfile文件中加入`pod 'SLYJPaySDK', '~> 2.2.1'`并执行`pod install`，如果版本不存在，需要执行`pod repo update`进行更新本地`repo`库后重试。
+在Podfile文件中加入`pod 'SLYJPaySDK', '~> 2.2.2'`并执行`pod install`，如果版本不存在，需要执行`pod repo update`进行更新本地`repo`库后重试。
 
 同时需要在info.plist文件中加入以下`key`用户获取相应权限：
 
