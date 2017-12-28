@@ -17,7 +17,7 @@ SLYJPaySDK is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'SLYJPaySDK'
+pod 'SLYJPaySDK', '~> 2.2'
 ```
 
 ## Author
@@ -28,13 +28,24 @@ yelon21, yl21ly@qq.com
 
 SLYJPaySDK is available under the MIT license. See the LICENSE file for more info.
 
+##SDK接入
+使用pod库安装：
+
+在Podfile文件中加入`pod 'SLYJPaySDK', '~> 2.2'`并执行`pod install`，如果版本不存在，需要执行`pod repo update`进行更新本地`repo`库后重试。
+
+同时需要在info.plist文件中加入以下`key`用户获取相应权限：
+
+1. 添加`NSLocationWhenInUseUsageDescription`，用于sdk获取定位信息
+2. 在`UISupportedInterfaceOrientations`下添加`UIInterfaceOrientationLandscapeLeft`，用于允许界面横屏（电子签名页面）
+3. 添加`NSBluetoothPeripheralUsageDescription`用于通过蓝牙与MPOS通讯
+
 ##1. 说明
 用户使用此SDK前需要先提供其App的包名`bundleId`到后台备案，备案后下发`appKey`给用户用于后续操作。
 
 Xcode配置：在使用target的Build Settings标签下的Other Linker Flags选项里面添加-ObjC。
 
 >注：此SDK仅支持真机运行，不支持模拟器运行。
->支持iOS7.0或更高版本。##2. SDK使用使用此SDK必须保持网络畅通并且App的定位权限已开启,蓝牙访问权限已开启。        在使用时候会涉及到回调，此处使用block方式。
+>支持iOS7.1或更高版本。##2. SDK使用使用此SDK必须保持网络畅通并且App的定位权限已开启,蓝牙访问权限已开启。        在使用时候会涉及到回调，此处使用block方式。
 
 block定义如下：
 
@@ -68,7 +79,22 @@ typedef NS_ENUM(NSUInteger, YJErrorType) {
     YJErrorTypeLocationIsLocating,
 };
  */
-typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSString *errorString);```###2.1. 授权认证
+typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSString *errorString);```
+
+###2.1 基础功能
+
+####2.1.1 启动百度定位引擎
+
+只有启动定位服务才能进行正常交易
+
+```/**
+ 启动百度定位引擎
+ 
+ @param key   百度地图ak，可通过 http://lbsyun.baidu.com/apiconsole/key 进行添加
+ @return BOOL 百度定位引擎启动结果
+ */
++ (BOOL)startWithBaiDuKey:(NSString *)key;```
+####2.1.2 授权认证
 只有授权成功才能进行后续流程。
 ```/** 认证  @param key           下发给合作商的key @param responseBlock 回调 */+ (void)startWithKey:(NSString *)key       responseBlock:(ResponseBlock)responseBlock;```
 ###2.2 用户信息####2.2.1 用户信息查询

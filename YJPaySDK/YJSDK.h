@@ -46,6 +46,13 @@ typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSS
 
 + (NSString *)version;
 /**
+ 启动百度定位引擎
+ 
+ @param key   百度key
+ @return BOOL 百度定位引擎启动结果
+ */
++ (BOOL)startWithBaiDuKey:(NSString *)key;
+/**
  认证
  
  @param key           下发给合作商的key
