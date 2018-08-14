@@ -77,6 +77,17 @@ typedef NS_ENUM(NSUInteger, YJErrorType) {
     YJErrorTypePhoneNumberError,
 };
 
+typedef NS_ENUM(NSUInteger, YJCardPayMessageType) {
+    YJCardPayMessageTypeFlash,//闪现
+    YJCardPayMessageTypeProgress,//loading
+    YJCardPayMessageTypeStop//结束、消失
+};
+
+@protocol YJCardPayDelegate <NSObject>
+
+- (void)onYJCardPayMessageType:(YJCardPayMessageType)type message:(NSString  * _Nullable)message;
+
+@end
 #define YJMessage_NotPermission @"未授权"
 #define YJMessage_UserInfoError @"请先获取用户信息"
 #define YJMessage_PhoneNumberError @"手机号不合法"

@@ -46,6 +46,12 @@ typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSS
 
 + (NSString *)version;
 /**
+ 设置delegate
+ 
+ @param delegate   delegate
+ */
++ (void)setSDKDelegete:(id<YJCardPayDelegate>)delegate;
+/**
  启动百度定位引擎
  
  @param key   百度key
@@ -220,6 +226,7 @@ typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSS
  @param toUserPhone   收款人手机号
  @param orderId        第三方订单id 或 者订单唯一标识
  @param amount         金额 单位为分 <=5000000
+ @param specialMerchant 精选商户
  @param payType        支付方式
  @param settlementType 结算方式
  @param merchantType   商品类型
@@ -249,6 +256,7 @@ typedef NS_ENUM(NSUInteger, YJMerchantType) {
      toUserPhone:(NSString *)toUserPhone
          orderId:(NSString *)orderId
           amount:(NSString *)amount
+ specialMerchant:(BOOL)specialMerchant
          payType:(YJPayToolType)payType
   settlementType:(YJSettlementType)settlementType
     merchantType:(YJMerchantType)merchantType

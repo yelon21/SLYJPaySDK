@@ -53,6 +53,22 @@
 				<key>deviceTag</key>
 				<string>33</string>
 			</dict>
+			<dict>
+				<key>deviceName</key>
+				<string>WP30</string>
+				<key>deviceImage</key>
+				<string>POS_WP30</string>
+				<key>deviceTag</key>
+				<string>45</string>
+			</dict>
+			<dict>
+				<key>deviceName</key>
+				<string>K205</string>
+				<key>deviceImage</key>
+				<string>POS_K205</string>
+				<key>deviceTag</key>
+				<string>85</string>
+			</dict>
 		</array>
 	</array>
 </dict>
