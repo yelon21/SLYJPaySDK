@@ -83,17 +83,6 @@ typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSS
 
 ###2.1 基础功能
 
-####2.1.1 代理
-
-如需自己实现消息提示，请设置
-```
-/**
- 设置delegate
- 
- @param delegate   delegate
- */
-+ (void)setSDKDelegete:(id<YJCardPayDelegate>)delegate;
-```
 ####2.1.1 启动百度定位引擎
 
 只有启动定位服务才能进行正常交易
@@ -108,6 +97,17 @@ typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSS
 ####2.1.2 授权认证
 只有授权成功才能进行后续流程。
 ```/** 认证  @param key           下发给合作商的key @param responseBlock 回调 */+ (void)startWithKey:(NSString *)key       responseBlock:(ResponseBlock)responseBlock;```
+####2.1.3 代理
+
+如需自己实现消息提示，请设置
+```
+/**
+ 设置delegate
+ 
+ @param delegate   delegate
+ */
++ (void)setSDKDelegete:(id<YJCardPayDelegate>)delegate;
+```
 ###2.2 用户信息####2.2.1 用户信息查询
 在授权成功后必须先获取用户信息，然后才能进行其他用户相关操作。
 
