@@ -17,7 +17,7 @@ SLYJPaySDK is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'SLYJPaySDK', '~> 2.2.2'
+pod 'SLYJPaySDK', '~> 2.2.5'
 ```
 
 ## Author
@@ -83,6 +83,17 @@ typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSS
 
 ###2.1 基础功能
 
+####2.1.1 代理
+
+如需自己实现消息提示，请设置
+```
+/**
+ 设置delegate
+ 
+ @param delegate   delegate
+ */
++ (void)setSDKDelegete:(id<YJCardPayDelegate>)delegate;
+```
 ####2.1.1 启动百度定位引擎
 
 只有启动定位服务才能进行正常交易
