@@ -262,4 +262,14 @@ typedef NS_ENUM(NSUInteger, YJMerchantType) {
     merchantType:(YJMerchantType)merchantType
    responseBlock:(ResponseBlock)responseBlock;
 
+/**
+ 启动终端激活
+ 
+ @param phone        当前用户手机号
+ @param terminalAmountBlock 终端金额冻结和继续事件
+ @param responseBlock 回调
+ */
++(void)startTerminalActive:(NSString *)phone
+       terminalAmountBlock:(void(^)(NSString *amount,dispatch_block_t continueActionBlock))terminalAmountBlock
+             responseBlock:(ResponseBlock)responseBlock;
 @end
