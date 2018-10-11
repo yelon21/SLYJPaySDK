@@ -55,9 +55,8 @@ typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSS
  启动百度定位引擎
  
  @param key   百度key
- @return BOOL 百度定位引擎启动结果
  */
-+ (BOOL)startWithBaiDuKey:(NSString *)key;
++ (void)startWithBaiDuKey:(NSString *)key;
 /**
  认证
  
@@ -113,6 +112,82 @@ typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSS
                 identityFront:(UIImage *)frontImage
                  identityBack:(UIImage *)backImage
                 responseBlock:(ResponseBlock)responseBlock;
+
+/**
+ 自助实名认证状态查询
+ 
+ 如果用户信息中authenFlag 状态为0或1，可以进行此查询
+ 
+ @param phone         用户手机号
+ @param responseBlock 回调
+ 返回参数：
+ authStatus
+ 0：未进行自助实名流程，可以进行人工信息保存或自助上传身份证步骤
+ 1：自助实名流程已完成第一步（认证了身份证），可以进行人脸识别或上传手持照片
+ 2：自助实名不可用
+ */
++ (void)queryAutoAuthenStatus:(NSString *)phone
+                responseBlock:(ResponseBlock)responseBlock;
+
+/**
+ 身份证图片信息识别
+ 
+ @param phone     用户手机号
+ @param cardImage 身份证照片
+ @param imageType 身份证照片类型
+ @param responseBlock 回调
+ */
++ (void)recognizerUser:(NSString *)phone
+             cardImage:(UIImage *)cardImage
+             imageType:(YJIdImageType)imageType
+         responseBlock:(ResponseBlock)responseBlock;
+
+/**
+ 自助实名认证保存用户信息
+ 
+ @param phone         用户手机号
+ @param cardImageHead 身份证人像面
+ @param cardImageGuoHui 身份证h国徽面
+ @param userName      用户姓名
+ @param certPid       用户身份证号
+ @param startDateString 身份证有效期始
+ @param endDateString 身份证有效期止
+ @param responseBlock 回调
+ */
++ (void)saveAutoUserInfo:(NSString *)phone
+           cardImageHead:(UIImage *)cardImageHead
+         cardImageGuoHui:(UIImage *)cardImageGuoHui
+                userName:(NSString *)userName
+                 certPid:(NSString *)certPid
+         startDateString:(NSString *)startDateString
+           endDateString:(NSString *)endDateString
+           responseBlock:(ResponseBlock)responseBlock;
+/**
+ 活体验证
+ 
+ @param phone     用户手机号
+ @param fromViewController  当前ViewController
+ @param responseBlock 回调
+ status 对应 YJFaceResultType
+ */
++ (void)verifyLivingBody:(NSString *)phone
+      fromViewController:(UIViewController *)fromViewController
+           responseBlock:(ResponseBlock)responseBlock;
+#pragma mark 高级认证
+/**
+ 高级认证
+ 
+ @param phone         当前用户登录手机号
+ @param userName      当前用户姓名
+ @param cardNo        用户所持有信用卡号
+ @param bankMobileNo  银行卡预留手机号
+ @param responseBlock 回调
+ */
++ (void)verifyUserCreditCardInfo:(NSString *)phone
+                        userName:(NSString *)userName
+                          cardNo:(NSString *)cardNo
+                    bankMobileNo:(NSString *)bankMobileNo
+                   responseBlock:(ResponseBlock)responseBlock;
 
 #pragma mark 银行卡相关
 #pragma mark 出款银行卡相关
@@ -268,6 +343,8 @@ typedef NS_ENUM(NSUInteger, YJMerchantType) {
  @param phone        当前用户手机号
  @param terminalAmountBlock 终端金额冻结和继续事件
  @param responseBlock 回调
+ terminalAmountBlock 回调两个参数 amount：金额 和 continueActionBlock继续流程的block
+ 当需要继续后续流程时候 调用continueActionBlockI()即可
  */
 +(void)startTerminalActive:(NSString *)phone
        terminalAmountBlock:(void(^)(NSString *amount,dispatch_block_t continueActionBlock))terminalAmountBlock

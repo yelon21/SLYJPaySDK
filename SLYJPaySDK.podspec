@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SLYJPaySDK'
-  s.version          = '2.2.5'
+  s.version          = '2.2.7'
   s.summary          = 'SLYJPaySDK.'
 
   s.description      = <<-DESC
@@ -22,11 +22,11 @@ TODO: SLYJPaySDK.
   s.source           = { :git => 'https://github.com/yelon21/SLYJPaySDK.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '7.1'
+  s.ios.deployment_target = '8.0'
 
   s.source_files = 'YJPaySDK/*'
-  s.resource     = "Assets/*.{bundle,storyboardc,png}"
-  s.vendored_libraries = '**/*.a'
+  s.resource     = "Assets/*.{bundle,storyboardc,png}",'Assets/junyu/**/*.{png,wav,dat}'
+  s.vendored_libraries = '**/*.a','Assets/junyu/**/*.a'
   s.libraries    = "stdc++"
   
   # s.resource_bundles = {
@@ -35,8 +35,8 @@ TODO: SLYJPaySDK.
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-	s.dependency 'AFNetworking', '~> 3.1.0'
-	s.dependency 'Masonry', '~> 1.1.0'
-	s.dependency 'GTMBase64', '~> 1.0.0'
-	s.dependency 'BaiduMapKit', '~> 3.4.2'
+  s.dependency 'AFNetworking', '~> 3.1.0'
+  s.dependency 'Masonry', '~> 1.1.0'
+  s.dependency 'GTMBase64', '~> 1.0.0'
+  s.dependency 'BMKLocationKit'
 end

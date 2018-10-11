@@ -9,10 +9,13 @@
 #ifndef YJPayDefine_h
 #define YJPayDefine_h
 
-#define LTLog(fmt, ...) nil
-#ifndef LTLog
-#define LTLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#ifdef DEBUG
+#define NSLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#define NSLog(fmt, ...) nil
 #endif
+
+#define LTLog(fmt, ...) nil
 /**
  支付方式
  
@@ -75,6 +78,7 @@ typedef NS_ENUM(NSUInteger, YJErrorType) {
     YJErrorTypeLocationIsOff,
     YJErrorTypeLocationIsLocating,
     YJErrorTypePhoneNumberError,
+    YJErrorTypeUserOperationError
 };
 
 typedef NS_ENUM(NSUInteger, YJCardPayMessageType) {
@@ -83,11 +87,30 @@ typedef NS_ENUM(NSUInteger, YJCardPayMessageType) {
     YJCardPayMessageTypeStop//结束、消失
 };
 
+/**
+ 身份证图片类型
+ 
+ - YJIdImageTypeHead: 身份证人像面
+ - YJIdImageTypeGuoHui: 身份证人国徽
+ */
+typedef enum : int {
+    YJIdImageTypeHead,
+    YJIdImageTypeGuoHui
+} YJIdImageType;
+
+typedef NS_ENUM(NSUInteger, YJFaceResultType) {
+    YJFaceResultType_Succeed,//成功
+    YJFaceResultType_Failed,//失败
+    YJFaceResultType_Cancel//取消
+};
+
 @protocol YJCardPayDelegate <NSObject>
 
 - (void)onYJCardPayMessageType:(YJCardPayMessageType)type message:(NSString  * _Nullable)message;
 
 @end
+
+
 #define YJMessage_NotPermission @"未授权"
 #define YJMessage_UserInfoError @"请先获取用户信息"
 #define YJMessage_PhoneNumberError @"手机号不合法"
