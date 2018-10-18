@@ -302,6 +302,7 @@ typedef void(^ResponseBlock)(NSDictionary *responseDic,YJErrorType errorType,NSS
  @param orderId        第三方订单id 或 者订单唯一标识
  @param amount         金额 单位为分 <=5000000
  @param specialMerchant 精选商户
+ @param specialMerchantId 精选商户id specialMerchant=NO时，可为空
  @param payType        支付方式
  @param settlementType 结算方式
  @param merchantType   商品类型
@@ -326,12 +327,12 @@ typedef NS_ENUM(NSUInteger, YJMerchantType) {
     YJMerchantTypeCAR,//汽车消费类
 };
 **/
-
 + (void)startPay:(NSString *)phone
      toUserPhone:(NSString *)toUserPhone
          orderId:(NSString *)orderId
           amount:(NSString *)amount
  specialMerchant:(BOOL)specialMerchant
+specialMerchantId:(NSString *)specialMerchantId
          payType:(YJPayToolType)payType
   settlementType:(YJSettlementType)settlementType
     merchantType:(YJMerchantType)merchantType
@@ -349,4 +350,60 @@ typedef NS_ENUM(NSUInteger, YJMerchantType) {
 +(void)startTerminalActive:(NSString *)phone
        terminalAmountBlock:(void(^)(NSString *amount,dispatch_block_t continueActionBlock))terminalAmountBlock
              responseBlock:(ResponseBlock)responseBlock;
+#pragma mark pos --------------自选商户-------------------
+/**
+ 获取当前定位信息
+ key:
+ province
+ city
+ */
++ (NSDictionary *)getCurrentLocationInfo;
+/**
+ 查询上一次交易的精选商户信息状态
+ 
+ @param phone         用户手机号
+ @param responseBlock  回调
+ 
+ openFlage 1：可以更改地区，0：不可更改地区
+ 在openFlage为1前提下，flage 0: 可以更改省、市  1：只可更改市
+ */
++ (void)queryLastTradeMerchantInfo:(NSString *)phone
+                     responseBlock:(ResponseBlock)responseBlock;
+/**
+ 查询可用商户列表
+ 
+ @param phone          用户手机号
+ @param provinceName   省份名称
+ @param cityName       城市名称
+ @param keyWord        搜索关键字 空字符串:全部
+ @param pageIndex      查询页面，起始页0
+ @param type           商户类型 A:超市电器 B:服装百货 C:酒店餐饮 D:珠宝娱乐 E:汽车消费 空字符串:全部
+ @param responseBlock  回调
+ */
++ (void)queryMerchantList:(NSString *)phone
+             provinceName:(NSString *)provinceName
+                 cityName:(NSString *)cityName
+                  keyWord:(NSString *)keyWord
+                pageIndex:(NSUInteger)pageIndex
+                     type:(NSString *)type
+            responseBlock:(ResponseBlock)responseBlock;
+/**
+ 查询商户省份列表
+ 
+ @param phone          用户手机号
+ 
+ @param responseBlock  回调
+ */
++ (void)queryMerchantProvinceList:(NSString *)phone
+                    responseBlock:(ResponseBlock)responseBlock;
+/**
+ 查询商户城市列表
+ 
+ @param phone          用户手机号
+ 
+ @param responseBlock  回调
+ */
++ (void)queryMerchantCityList:(NSString *)phone
+                 provinceName:(NSString *)provinceName
+                responseBlock:(ResponseBlock)responseBlock;
 @end
