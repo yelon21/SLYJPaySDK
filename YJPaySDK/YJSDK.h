@@ -406,4 +406,18 @@ specialMerchantId:(NSString *)specialMerchantId
 + (void)queryMerchantCityList:(NSString *)phone
                  provinceName:(NSString *)provinceName
                 responseBlock:(ResponseBlock)responseBlock;
+#pragma mark 机构收款功能
+/**
+ 机构收款功能
+ 为特定机构定制，用户可向机构付款
+ 
+ @param phone         用户手机号
+ @param orderId       第三方订单id 或 者订单唯一标识
+ @param amount        金额 单位为分 500-200000
+ @param responseBlock  回调
+ */
++ (void)payForActivity:(NSString *)phone
+               orderId:(NSString *)orderId
+                amount:(NSString *)amount
+         responseBlock:(ResponseBlock)responseBlock;
 @end
