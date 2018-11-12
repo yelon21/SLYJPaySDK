@@ -420,4 +420,63 @@ specialMerchantId:(NSString *)specialMerchantId
                orderId:(NSString *)orderId
                 amount:(NSString *)amount
          responseBlock:(ResponseBlock)responseBlock;
+
+#pragma mark 收款码
+/**
+ 申请收款码
+ 
+ @param phone   用户手机号
+ @param amount  收款金额 //单位分
+ @param responseBlock  回调
+ 
+ "ORDER_STATUS"--交易状态 0：订单生成，1：支付中，2：成功，3：失败
+ "TRN_TX_DATE"--交易时间
+ "TX_AUTH_CODE"--交易二维码源链接
+ "TX_MER_NAME"--商户名称
+ "TX_ORDER_AMOUNT"--交易金额
+ "TX_ORDER_NO"--订单号
+ */
++ (void)qrGetQRImage:(NSString *)phone
+              amount:(unsigned long)amount
+       responseBlock:(ResponseBlock)responseBlock;
+/**
+ 查询收款码状态
+ 
+ @param phone   用户手机号
+ @param orderId 二维码订单id
+ @param responseBlock  回调
+ 
+ "ORDER_STATUS"--交易状态 0：订单生成，1：支付中，2：成功，3：失败
+ "TRN_TX_DATE"--交易时间
+ "TX_AUTH_CODE"--交易二维码源链接
+ "TX_MER_NAME"--商户名称
+ "TX_ORDER_AMOUNT"--交易金额
+ "TX_ORDER_NO"--订单号
+ */
++ (void)requestQRImageStatus:(NSString *)phone
+                     orderId:(NSString *)orderId
+               responseBlock:(ResponseBlock)responseBlock;
+
+/**
+ 扫码收款
+ 
+ @param phone   用户手机号
+ @param amount  收款金额 //单位分
+ @param qrContent  银联付款码内容
+ @param responseBlock  回调
+ 
+ "ORDER_STATUS"--交易状态 2：成功，3：失败
+ "ORDER_STATUS_DESC"--订单状态描述
+ "TRN_TX_DATE"--交易时间
+ "TX_AUTH_CODE"--交易二维码源链接
+ "TX_MER_NAME"--商户名称
+ "TX_ORDER_AMOUNT"--交易金额
+ "TX_ORDER_NO"--订单号
+ "TX_PAY_ACCOUNT"--付款卡号
+ 
+ */
++ (void)collectFromQRImage:(NSString *)phone
+                    amount:(unsigned long)amount
+                 qrContent:(NSString *)qrContent
+             responseBlock:(ResponseBlock)responseBlock;
 @end

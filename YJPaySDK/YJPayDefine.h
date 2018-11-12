@@ -104,6 +104,11 @@ typedef NS_ENUM(NSUInteger, YJFaceResultType) {
     YJFaceResultType_Cancel//取消
 };
 
+typedef NS_ENUM(NSUInteger, YJCardType) {
+    YJCardType_CashCard,//借记卡、储蓄卡
+    YJCardType_CreditCard//信用卡
+};
+
 @protocol YJCardPayDelegate <NSObject>
 
 - (void)onYJCardPayMessageType:(YJCardPayMessageType)type message:(NSString  * _Nullable)message;
